@@ -61,4 +61,5 @@ for file_mgz in "${volumes}"/*.mgz; do
     -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
     docker://brainlife/freesurfer:7.3.2 \
     mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
+    mv "${file_mgz//.mgz/.nii.gz}" $( dirname "${file_mgz}" )'/'"parc.nii.gz"
 done
