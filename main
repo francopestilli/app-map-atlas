@@ -5,6 +5,80 @@
 set -e
 set -x
 
+imm_castType() {
+
+    if [ $# -lt 2 ]; then
+        echo "$0: usage: imm_castType <input.ext> <output_type> [<output.ext>]"
+        return 1
+    fi
+
+    local input="$1"
+    local type="$2"
+    local output="$3"
+
+    [ -z "$output" ] && output="$input"
+
+    singularity exec docker://brainlife/dipy:1.4.1 python3 - <<EOF
+
+import nibabel as nib
+import numpy as np
+import sys
+
+input_file = "${input}"
+output_file = "${output}"
+dtype = "${type}"
+
+type_map = {
+    "char": np.int8,
+    "short": np.int16,
+    "int": np.int32,
+    "float": np.float32,
+    "double": np.float64,
+    "uchar": np.uint8,
+    "ushort": np.uint16,
+    "uint": np.uint32,
+}
+
+img = nib.load(input_file)
+
+# preserve raw stored values
+data = np.asanyarray(img.dataobj)
+
+# clean invalid atlas values
+data = np.nan_to_num(data, nan=0)
+data[data < 0] = 0
+
+if dtype == "intround":
+    data = np.round(data).astype(np.int32)
+    out_dtype = np.int32
+
+elif dtype in type_map:
+    if np.issubdtype(type_map[dtype], np.integer):
+        data = np.round(data)
+
+    data = data.astype(type_map[dtype])
+    out_dtype = type_map[dtype]
+
+else:
+    sys.stderr.write(f"Unsupported type: {dtype}\n")
+    sys.exit(1)
+
+new_img = nib.Nifti1Image(data, img.affine, img.header)
+new_img.set_data_dtype(out_dtype)
+
+# remove scaling
+new_img.header["scl_slope"] = 1
+new_img.header["scl_inter"] = 0
+
+nib.save(new_img, output_file)
+
+print("saved:", output_file)
+print("dtype:", out_dtype)
+print("unique:", np.unique(data)[:20])
+
+EOF
+}
+
 fsdir=$(jq -r '.freesurfer' config.json)
 atlas=$(jq -r '.atlas' config.json)
 reference=$(jq -r '.reference' config.json)
@@ -62,4 +136,5 @@ for file_mgz in "${volumes}"/*.mgz; do
     docker://brainlife/freesurfer:7.3.2 \
     mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
     mv "${file_mgz//.mgz/.nii.gz}" $( dirname "${file_mgz}" )'/'"parc.nii.gz"
+    imm_castType parc.nii.gz ushort
 done
