@@ -136,5 +136,5 @@ for file_mgz in "${volumes}"/*.mgz; do
     docker://brainlife/freesurfer:7.3.2 \
     mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
     mv "${file_mgz//.mgz/.nii.gz}" $( dirname "${file_mgz}" )'/'"parc.nii.gz"
-    imm_castType parc.nii.gz ushort
+    imm_castType $( dirname "${file_mgz}" )'/'"parc.nii.gz" ushort
 done
