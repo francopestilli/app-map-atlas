@@ -96,7 +96,14 @@ volumes=./volumes
 mkdir -p "${parcellation}" "${surfaces}" "${volumes}"
 
 echo "Running neuropythy atlas"
-
+echo "python -m neuropythy atlas \
+  --verbose \
+  --atlases "${atlas}" \
+  --volume-export \
+  --volume-path ./volumes \
+  --output-path ./surfaces \
+  ${opt[@]} \
+  ./freesurfer"
 singularity exec -e "${docker}" \
   python -m neuropythy atlas \
   --verbose \
