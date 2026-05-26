@@ -142,7 +142,7 @@ else
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
 
       mv "${file_mgz//.mgz/.nii.gz}" "${odir}/parc.nii.gz"
-      if [ "${file_bname%.mgz}" != "wang15_fplbl" ]; then
+      if ( [ "${file_bname%.mgz}" != "wang15_fplbl" ] || [ "${file_bname%.mgz}" != "benson14_eccen" ] ||  [ "${file_bname%.mgz}" != "benson14_angle" ] ||  [ "${file_bname%.mgz}" != "benson14_sigma" ] ); then
           imm_castType "${odir}/parc.nii.gz" ushort
       fi
     done
