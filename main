@@ -6,9 +6,8 @@ set -e
 set -x
 
 imm_castType() {
-
     if [ $# -lt 2 ]; then
-        echo "$0: usage: imm_castType <input.ext> <output_type> [<output.ext>]"
+        echo "usage: imm_castType <input.ext> <output_type> [<output.ext>]"
         return 1
     fi
 
@@ -19,7 +18,6 @@ imm_castType() {
     [ -z "$output" ] && output="$input"
 
     singularity exec docker://brainlife/dipy:1.4.1 python3 - <<EOF
-
 import nibabel as nib
 import numpy as np
 import sys
@@ -40,11 +38,8 @@ type_map = {
 }
 
 img = nib.load(input_file)
-
-# preserve raw stored values
 data = np.asanyarray(img.dataobj)
 
-# clean invalid atlas values
 data = np.nan_to_num(data, nan=0)
 data[data < 0] = 0
 
@@ -60,13 +55,12 @@ elif dtype in type_map:
     out_dtype = type_map[dtype]
 
 else:
-    sys.stderr.write(f"Unsupported type: {dtype}\n")
+    sys.stderr.write(f"Unsupported type: {dtype}\\n")
     sys.exit(1)
 
 new_img = nib.Nifti1Image(data, img.affine, img.header)
 new_img.set_data_dtype(out_dtype)
 
-# remove scaling
 new_img.header["scl_slope"] = 1
 new_img.header["scl_inter"] = 0
 
@@ -75,7 +69,6 @@ nib.save(new_img, output_file)
 print("saved:", output_file)
 print("dtype:", out_dtype)
 print("unique:", np.unique(data)[:20])
-
 EOF
 }
 
@@ -90,36 +83,28 @@ if [[ -n "${reference}" && "${reference}" != "null" ]]; then
   opt+=(--image-template "${reference}")
 fi
 
-# make local copy of freesurfer directory
 freesurfer=./freesurfer
 if [[ ! -d "${freesurfer}" ]]; then
   cp -LR "${fsdir}" "${freesurfer}"
-  chmod -R +w "${freesurfer}"/*
+  chmod -R +w "${freesurfer}"
 fi
 
-# main
 volumes=./volumes
 surfaces=./surfaces
 
 mkdir -p "${volumes}" "${surfaces}"
 
-echo "singularity exec -e "${docker}" \
-  python -m neuropythy atlas \
-  --verbose \
-  --atlases "${atlas}" \
-  --volume-export  \
-  --volume-path  ./volumes \
-  --output-path ./surfaces  \
-  ./freesurfer  "
+echo "Running neuropythy atlas"
 
 singularity exec -e "${docker}" \
   python -m neuropythy atlas \
   --verbose \
   --atlases "${atlas}" \
-  --volume-export  \
-  --volume-path  ./volumes \
-  --output-path ./surfaces  \
-  ./freesurfer 
+  --volume-export \
+  --volume-path ./volumes \
+  --output-path ./surfaces \
+  "${opt[@]}" \
+  ./freesurfer
 
 if [[ -z "${FREESURFER_LICENSE}" ]]; then
   echo "Please set FREESURFER_LICENSE in .bashrc"
@@ -128,13 +113,37 @@ fi
 
 echo "${FREESURFER_LICENSE}" > license.txt
 
-for file_mgz in "${volumes}"/*.mgz; do
-  [[ -e "${file_mgz}" ]] || continue
+if [[ "${atlas}" == "glasser16" || "${atlas}" == "rosenke18" ]]; then
 
-  singularity exec -e \
-    -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
-    docker://brainlife/freesurfer:7.3.2 \
-    mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
-    mv "${file_mgz//.mgz/.nii.gz}" $( dirname "${file_mgz}" )'/'"parc.nii.gz"
-    imm_castType $( dirname "${file_mgz}" )'/'"parc.nii.gz" ushort
-done
+    file_mgz=$(ls "${volumes}"/*.mgz | head -n 1)
+
+    singularity exec -e \
+        -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
+        docker://brainlife/freesurfer:7.3.2 \
+        mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
+
+    mv "${file_mgz//.mgz/.nii.gz}" "$(dirname "${file_mgz}")/parc.nii.gz"
+
+    imm_castType "$(dirname "${file_mgz}")/parc.nii.gz" ushort
+
+else
+
+    for file_mgz in "${volumes}"/*.mgz; do
+      [[ -e "${file_mgz}" ]] || continue
+
+      file_bname=$(basename "${file_mgz}")
+      odir="./${file_bname%.mgz}"
+
+      mkdir -p "${odir}"
+
+      singularity exec -e \
+        -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
+        docker://brainlife/freesurfer:7.3.2 \
+        mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
+
+      mv "${file_mgz//.mgz/.nii.gz}" "${odir}/parc.nii.gz"
+
+      imm_castType "${odir}/parc.nii.gz" ushort
+    done
+
+fi
