@@ -142,8 +142,9 @@ else
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
 
       mv "${file_mgz//.mgz/.nii.gz}" "${odir}/parc.nii.gz"
-
-      imm_castType "${odir}/parc.nii.gz" ushort
+      if [ "${file_bname%.mgz}" != "wang15_fplbl" ]; then
+          imm_castType "${odir}/parc.nii.gz" ushort
+      fi
     done
 
 fi
