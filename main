@@ -91,9 +91,9 @@ fi
 
 parcellation=./parcellation
 surfaces=./surfaces
-maps=./maps
+volumes=./volumes
 
-mkdir -p "${parcellation}" "${surfaces}" "${maps}"
+mkdir -p "${parcellation}" "${surfaces}" "${volumes}"
 
 echo "Running neuropythy atlas"
 
@@ -102,7 +102,7 @@ singularity exec -e "${docker}" \
   --verbose \
   --atlases "${atlas}" \
   --volume-export \
-  --volume-path ./maps \
+  --volume-path ./volumes \
   --output-path ./surfaces \
   "${opt[@]}" \
   ./freesurfer
@@ -116,7 +116,7 @@ echo "${FREESURFER_LICENSE}" > license.txt
 
 if [[ "${atlas}" == "glasser16" || "${atlas}" == "rosenke18" ]]; then
 
-    file_mgz=$(ls "${maps}"/*.mgz | head -n 1)
+    file_mgz=$(ls "${volumes}"/*.mgz | head -n 1)
 
     singularity exec -e \
         -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
@@ -129,12 +129,12 @@ if [[ "${atlas}" == "glasser16" || "${atlas}" == "rosenke18" ]]; then
 
 else
 
-    for file_mgz in "${maps}"/*.mgz; do
+    for file_mgz in "${volumes}"/*.mgz; do
       [[ -e "${file_mgz}" ]] || continue
 
       file_bname=$(basename "${file_mgz}")
       map_name="${file_bname%.mgz}"
-      odir="${parcellation}/${map_name}"
+      odir="${parcellation}/"
 
       mkdir -p "${odir}"
 
@@ -142,9 +142,7 @@ else
         -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
         docker://brainlife/freesurfer:7.3.2 \
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
-
-      
-
+      echo ${map_name}
       if [[ "${map_name}" != "wang15_fplbl" && \
             "${map_name}" != "benson14_eccen" && \
             "${map_name}" != "benson14_angle" && \
