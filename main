@@ -89,10 +89,11 @@ if [[ ! -d "${freesurfer}" ]]; then
   chmod -R +w "${freesurfer}"
 fi
 
-volumes=./volumes
+parcellation=./parcellation
 surfaces=./surfaces
+maps=./maps
 
-mkdir -p "${volumes}" "${surfaces}"
+mkdir -p "${parcellation}" "${surfaces}" "${maps}"
 
 echo "Running neuropythy atlas"
 
@@ -101,7 +102,7 @@ singularity exec -e "${docker}" \
   --verbose \
   --atlases "${atlas}" \
   --volume-export \
-  --volume-path ./volumes \
+  --volume-path ./maps \
   --output-path ./surfaces \
   "${opt[@]}" \
   ./freesurfer
@@ -115,24 +116,25 @@ echo "${FREESURFER_LICENSE}" > license.txt
 
 if [[ "${atlas}" == "glasser16" || "${atlas}" == "rosenke18" ]]; then
 
-    file_mgz=$(ls "${volumes}"/*.mgz | head -n 1)
+    file_mgz=$(ls "${maps}"/*.mgz | head -n 1)
 
     singularity exec -e \
         -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
         docker://brainlife/freesurfer:7.3.2 \
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
 
-    mv "${file_mgz//.mgz/.nii.gz}" "$(dirname "${file_mgz}")/parc.nii.gz"
+    mv "${file_mgz//.mgz/.nii.gz}" "${parcellation}/parc.nii.gz"
 
-    imm_castType "$(dirname "${file_mgz}")/parc.nii.gz" ushort
+    imm_castType "${parcellation}/parc.nii.gz" ushort
 
 else
 
-    for file_mgz in "${volumes}"/*.mgz; do
+    for file_mgz in "${maps}"/*.mgz; do
       [[ -e "${file_mgz}" ]] || continue
 
       file_bname=$(basename "${file_mgz}")
-      odir="./${file_bname%.mgz}"
+      map_name="${file_bname%.mgz}"
+      odir="${parcellation}/${map_name}"
 
       mkdir -p "${odir}"
 
@@ -142,9 +144,15 @@ else
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
 
       mv "${file_mgz//.mgz/.nii.gz}" "${odir}/parc.nii.gz"
-      if ( [ "${file_bname%.mgz}" != "wang15_fplbl" ] || [ "${file_bname%.mgz}" != "benson14_eccen" ] ||  [ "${file_bname%.mgz}" != "benson14_angle" ] ||  [ "${file_bname%.mgz}" != "benson14_sigma" ] ); then
+
+      if [[ "${map_name}" != "wang15_fplbl" && \
+            "${map_name}" != "benson14_eccen" && \
+            "${map_name}" != "benson14_angle" && \
+            "${map_name}" != "benson14_sigma" ]]; then
+
           imm_castType "${odir}/parc.nii.gz" ushort
       fi
+
     done
 
 fi
