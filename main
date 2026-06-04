@@ -72,7 +72,7 @@ print("unique:", np.unique(data)[:20])
 EOF_PY
 }
 
-LABEL_DIR="${APPDIR}/src/labels"
+
 
 copy_label_json() {
     local atlas_name="$1"
@@ -103,7 +103,7 @@ atlas_label_name() {
 }
 
 APPDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
-LABEL_DIR="${APPDIR}/src/atlases"
+LABEL_DIR="${APPDIR}/src/labels"
 
 fsdir=$(jq -r '.freesurfer' config.json)
 atlas=$(jq -r '.atlas' config.json)
