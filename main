@@ -17,7 +17,7 @@ imm_castType() {
 
     [ -z "$output" ] && output="$input"
 
-    singularity exec docker://brainlife/dipy:1.4.1 python3 - <<EOF
+    singularity exec docker://brainlife/dipy:1.4.1 python3 - <<EOF_PY
 import nibabel as nib
 import numpy as np
 import sys
@@ -69,8 +69,39 @@ nib.save(new_img, output_file)
 print("saved:", output_file)
 print("dtype:", out_dtype)
 print("unique:", np.unique(data)[:20])
-EOF
+EOF_PY
 }
+
+copy_label_json() {
+    local atlas_name="$1"
+    local outdir="$2"
+    local label_json="${LABEL_DIR}/${atlas_name}/label.json"
+
+    if [[ -f "${label_json}" ]]; then
+        cp "${label_json}" "${outdir}/label.json"
+    else
+        echo "WARNING: missing label file: ${label_json}"
+    fi
+}
+
+atlas_label_name() {
+    local map_name="$1"
+
+    if [[ "${map_name}" == wang15* ]]; then
+        echo "wang15"
+    elif [[ "${map_name}" == benson14* ]]; then
+        echo "benson14"
+    elif [[ "${map_name}" == glasser16* ]]; then
+        echo "glasser16"
+    elif [[ "${map_name}" == rosenke18* ]]; then
+        echo "rosenke18"
+    else
+        echo "${map_name}"
+    fi
+}
+
+APPDIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+LABEL_DIR="${APPDIR}/src/atlases"
 
 fsdir=$(jq -r '.freesurfer' config.json)
 atlas=$(jq -r '.atlas' config.json)
@@ -98,12 +129,13 @@ mkdir -p "${parcellation}" "${surfaces}" "${volumes}"
 echo "Running neuropythy atlas"
 echo "python -m neuropythy atlas \
   --verbose \
-  --atlases "${atlas}" \
+  --atlases ${atlas} \
   --volume-export \
   --volume-path ./volumes \
   --output-path ./surfaces \
-  ${opt[@]} \
+  ${opt[*]} \
   ./freesurfer"
+
 singularity exec -e "${docker}" \
   python -m neuropythy atlas \
   --verbose \
@@ -123,7 +155,12 @@ echo "${FREESURFER_LICENSE}" > license.txt
 
 if [[ "${atlas}" == "glasser16" || "${atlas}" == "rosenke18" ]]; then
 
-    file_mgz=$(ls "${volumes}"/*.mgz | head -n 1)
+    file_mgz=$(find "${volumes}" -maxdepth 1 -name '*.mgz' | head -n 1)
+
+    if [[ -z "${file_mgz}" ]]; then
+        echo "ERROR: no .mgz file found in ${volumes}"
+        exit 1
+    fi
 
     singularity exec -e \
         -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
@@ -131,8 +168,8 @@ if [[ "${atlas}" == "glasser16" || "${atlas}" == "rosenke18" ]]; then
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
 
     cp "${file_mgz//.mgz/.nii.gz}" "${parcellation}/parc.nii.gz"
-
     imm_castType "${parcellation}/parc.nii.gz" ushort
+    copy_label_json "${atlas}" "${parcellation}"
 
 else
 
@@ -141,21 +178,24 @@ else
 
       file_bname=$(basename "${file_mgz}")
       map_name="${file_bname%.mgz}"
-      odir="${parcellation}/"
-
-      mkdir -p "${odir}"
 
       singularity exec -e \
         -B "$(pwd)/license.txt:/usr/local/freesurfer/license.txt" \
         docker://brainlife/freesurfer:7.3.2 \
         mri_convert "${file_mgz}" "${file_mgz//.mgz/.nii.gz}"
-      echo ${map_name}
+
+      echo "${map_name}"
+
       if [[ "${map_name}" != "wang15_fplbl" && \
             "${map_name}" != "benson14_eccen" && \
             "${map_name}" != "benson14_angle" && \
             "${map_name}" != "benson14_sigma" ]]; then
-          cp "${file_mgz//.mgz/.nii.gz}" "${odir}/parc.nii.gz"
-          imm_castType "${odir}/parc.nii.gz" ushort
+
+          cp "${file_mgz//.mgz/.nii.gz}" "${parcellation}/parc.nii.gz"
+          imm_castType "${parcellation}/parc.nii.gz" ushort
+
+          label_atlas=$(atlas_label_name "${map_name}")
+          copy_label_json "${label_atlas}" "${parcellation}"
       fi
 
     done

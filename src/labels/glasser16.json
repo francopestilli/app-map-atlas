@@ -1,0 +1,727 @@
+[
+    {
+        "name": "no visual area",
+        "desc": "no visual area",
+        "voxel_value": 0
+    },
+    {
+        "name": "V1",
+        "voxel_value": 1
+    },
+    {
+        "name": "MST",
+        "voxel_value": 2
+    },
+    {
+        "name": "V6",
+        "voxel_value": 3
+    },
+    {
+        "name": "V2",
+        "voxel_value": 4
+    },
+    {
+        "name": "V3",
+        "voxel_value": 5
+    },
+    {
+        "name": "V4",
+        "voxel_value": 6
+    },
+    {
+        "name": "V8",
+        "voxel_value": 7
+    },
+    {
+        "name": "4",
+        "voxel_value": 8
+    },
+    {
+        "name": "3b",
+        "voxel_value": 9
+    },
+    {
+        "name": "FEF",
+        "voxel_value": 10
+    },
+    {
+        "name": "PEF",
+        "voxel_value": 11
+    },
+    {
+        "name": "55b",
+        "voxel_value": 12
+    },
+    {
+        "name": "V3A",
+        "voxel_value": 13
+    },
+    {
+        "name": "RSC",
+        "voxel_value": 14
+    },
+    {
+        "name": "POS2",
+        "voxel_value": 15
+    },
+    {
+        "name": "V7",
+        "voxel_value": 16
+    },
+    {
+        "name": "IPS1",
+        "voxel_value": 17
+    },
+    {
+        "name": "FFC",
+        "voxel_value": 18
+    },
+    {
+        "name": "V3B",
+        "voxel_value": 19
+    },
+    {
+        "name": "LO1",
+        "voxel_value": 20
+    },
+    {
+        "name": "LO2",
+        "voxel_value": 21
+    },
+    {
+        "name": "PIT",
+        "voxel_value": 22
+    },
+    {
+        "name": "MT",
+        "voxel_value": 23
+    },
+    {
+        "name": "A1",
+        "voxel_value": 24
+    },
+    {
+        "name": "PSL",
+        "voxel_value": 25
+    },
+    {
+        "name": "SFL",
+        "voxel_value": 26
+    },
+    {
+        "name": "PCV",
+        "voxel_value": 27
+    },
+    {
+        "name": "STV",
+        "voxel_value": 28
+    },
+    {
+        "name": "7Pm",
+        "voxel_value": 29
+    },
+    {
+        "name": "7m",
+        "voxel_value": 30
+    },
+    {
+        "name": "POS1",
+        "voxel_value": 31
+    },
+    {
+        "name": "23d",
+        "voxel_value": 32
+    },
+    {
+        "name": "v23ab",
+        "voxel_value": 33
+    },
+    {
+        "name": "d23ab",
+        "voxel_value": 34
+    },
+    {
+        "name": "31pv",
+        "voxel_value": 35
+    },
+    {
+        "name": "5m",
+        "voxel_value": 36
+    },
+    {
+        "name": "5mv",
+        "voxel_value": 37
+    },
+    {
+        "name": "23c",
+        "voxel_value": 38
+    },
+    {
+        "name": "5L",
+        "voxel_value": 39
+    },
+    {
+        "name": "24dd",
+        "voxel_value": 40
+    },
+    {
+        "name": "24dv",
+        "voxel_value": 41
+    },
+    {
+        "name": "7AL",
+        "voxel_value": 42
+    },
+    {
+        "name": "SCEF",
+        "voxel_value": 43
+    },
+    {
+        "name": "6ma",
+        "voxel_value": 44
+    },
+    {
+        "name": "7Am",
+        "voxel_value": 45
+    },
+    {
+        "name": "7PL",
+        "voxel_value": 46
+    },
+    {
+        "name": "7PC",
+        "voxel_value": 47
+    },
+    {
+        "name": "LIPv",
+        "voxel_value": 48
+    },
+    {
+        "name": "VIP",
+        "voxel_value": 49
+    },
+    {
+        "name": "MIP",
+        "voxel_value": 50
+    },
+    {
+        "name": "1",
+        "voxel_value": 51
+    },
+    {
+        "name": "2",
+        "voxel_value": 52
+    },
+    {
+        "name": "3a",
+        "voxel_value": 53
+    },
+    {
+        "name": "6d",
+        "voxel_value": 54
+    },
+    {
+        "name": "6mp",
+        "voxel_value": 55
+    },
+    {
+        "name": "6v",
+        "voxel_value": 56
+    },
+    {
+        "name": "p24pr",
+        "voxel_value": 57
+    },
+    {
+        "name": "33pr",
+        "voxel_value": 58
+    },
+    {
+        "name": "a24pr",
+        "voxel_value": 59
+    },
+    {
+        "name": "p32pr",
+        "voxel_value": 60
+    },
+    {
+        "name": "a24",
+        "voxel_value": 61
+    },
+    {
+        "name": "d32",
+        "voxel_value": 62
+    },
+    {
+        "name": "8BM",
+        "voxel_value": 63
+    },
+    {
+        "name": "p32",
+        "voxel_value": 64
+    },
+    {
+        "name": "10r",
+        "voxel_value": 65
+    },
+    {
+        "name": "47m",
+        "voxel_value": 66
+    },
+    {
+        "name": "8Av",
+        "voxel_value": 67
+    },
+    {
+        "name": "8Ad",
+        "voxel_value": 68
+    },
+    {
+        "name": "9m",
+        "voxel_value": 69
+    },
+    {
+        "name": "8BL",
+        "voxel_value": 70
+    },
+    {
+        "name": "9p",
+        "voxel_value": 71
+    },
+    {
+        "name": "10d",
+        "voxel_value": 72
+    },
+    {
+        "name": "8C",
+        "voxel_value": 73
+    },
+    {
+        "name": "44",
+        "voxel_value": 74
+    },
+    {
+        "name": "45",
+        "voxel_value": 75
+    },
+    {
+        "name": "47l",
+        "voxel_value": 76
+    },
+    {
+        "name": "a47r",
+        "voxel_value": 77
+    },
+    {
+        "name": "6r",
+        "voxel_value": 78
+    },
+    {
+        "name": "IFJa",
+        "voxel_value": 79
+    },
+    {
+        "name": "IFJp",
+        "voxel_value": 80
+    },
+    {
+        "name": "IFSp",
+        "voxel_value": 81
+    },
+    {
+        "name": "IFSa",
+        "voxel_value": 82
+    },
+    {
+        "name": "p9-46v",
+        "voxel_value": 83
+    },
+    {
+        "name": "46",
+        "voxel_value": 84
+    },
+    {
+        "name": "a9-46v",
+        "voxel_value": 85
+    },
+    {
+        "name": "9-46d",
+        "voxel_value": 86
+    },
+    {
+        "name": "9a",
+        "voxel_value": 87
+    },
+    {
+        "name": "10v",
+        "voxel_value": 88
+    },
+    {
+        "name": "a10p",
+        "voxel_value": 89
+    },
+    {
+        "name": "10pp",
+        "voxel_value": 90
+    },
+    {
+        "name": "11l",
+        "voxel_value": 91
+    },
+    {
+        "name": "13l",
+        "voxel_value": 92
+    },
+    {
+        "name": "OFC",
+        "voxel_value": 93
+    },
+    {
+        "name": "47s",
+        "voxel_value": 94
+    },
+    {
+        "name": "LIPd",
+        "voxel_value": 95
+    },
+    {
+        "name": "6a",
+        "voxel_value": 96
+    },
+    {
+        "name": "i6-8",
+        "voxel_value": 97
+    },
+    {
+        "name": "s6-8",
+        "voxel_value": 98
+    },
+    {
+        "name": "43",
+        "voxel_value": 99
+    },
+    {
+        "name": "OP4",
+        "voxel_value": 100
+    },
+    {
+        "name": "OP1",
+        "voxel_value": 101
+    },
+    {
+        "name": "OP2-3",
+        "voxel_value": 102
+    },
+    {
+        "name": "52",
+        "voxel_value": 103
+    },
+    {
+        "name": "RI",
+        "voxel_value": 104
+    },
+    {
+        "name": "PFcm",
+        "voxel_value": 105
+    },
+    {
+        "name": "PoI2",
+        "voxel_value": 106
+    },
+    {
+        "name": "TA2",
+        "voxel_value": 107
+    },
+    {
+        "name": "FOP4",
+        "voxel_value": 108
+    },
+    {
+        "name": "MI",
+        "voxel_value": 109
+    },
+    {
+        "name": "Pir",
+        "voxel_value": 110
+    },
+    {
+        "name": "AVI",
+        "voxel_value": 111
+    },
+    {
+        "name": "AAIC",
+        "voxel_value": 112
+    },
+    {
+        "name": "FOP1",
+        "voxel_value": 113
+    },
+    {
+        "name": "FOP3",
+        "voxel_value": 114
+    },
+    {
+        "name": "FOP2",
+        "voxel_value": 115
+    },
+    {
+        "name": "PFt",
+        "voxel_value": 116
+    },
+    {
+        "name": "AIP",
+        "voxel_value": 117
+    },
+    {
+        "name": "EC",
+        "voxel_value": 118
+    },
+    {
+        "name": "PreS",
+        "voxel_value": 119
+    },
+    {
+        "name": "H",
+        "voxel_value": 120
+    },
+    {
+        "name": "ProS",
+        "voxel_value": 121
+    },
+    {
+        "name": "PeEc",
+        "voxel_value": 122
+    },
+    {
+        "name": "STGa",
+        "voxel_value": 123
+    },
+    {
+        "name": "PBelt",
+        "voxel_value": 124
+    },
+    {
+        "name": "A5",
+        "voxel_value": 125
+    },
+    {
+        "name": "PHA1",
+        "voxel_value": 126
+    },
+    {
+        "name": "PHA3",
+        "voxel_value": 127
+    },
+    {
+        "name": "STSda",
+        "voxel_value": 128
+    },
+    {
+        "name": "STSdp",
+        "voxel_value": 129
+    },
+    {
+        "name": "STSvp",
+        "voxel_value": 130
+    },
+    {
+        "name": "TGd",
+        "voxel_value": 131
+    },
+    {
+        "name": "TE1a",
+        "voxel_value": 132
+    },
+    {
+        "name": "TE1p",
+        "voxel_value": 133
+    },
+    {
+        "name": "TE2a",
+        "voxel_value": 134
+    },
+    {
+        "name": "TF",
+        "voxel_value": 135
+    },
+    {
+        "name": "TE2p",
+        "voxel_value": 136
+    },
+    {
+        "name": "PHT",
+        "voxel_value": 137
+    },
+    {
+        "name": "PH",
+        "voxel_value": 138
+    },
+    {
+        "name": "TPOJ1",
+        "voxel_value": 139
+    },
+    {
+        "name": "TPOJ2",
+        "voxel_value": 140
+    },
+    {
+        "name": "TPOJ3",
+        "voxel_value": 141
+    },
+    {
+        "name": "DVT",
+        "voxel_value": 142
+    },
+    {
+        "name": "PGp",
+        "voxel_value": 143
+    },
+    {
+        "name": "IP2",
+        "voxel_value": 144
+    },
+    {
+        "name": "IP1",
+        "voxel_value": 145
+    },
+    {
+        "name": "IP0",
+        "voxel_value": 146
+    },
+    {
+        "name": "PFop",
+        "voxel_value": 147
+    },
+    {
+        "name": "PF",
+        "voxel_value": 148
+    },
+    {
+        "name": "PFm",
+        "voxel_value": 149
+    },
+    {
+        "name": "PGi",
+        "voxel_value": 150
+    },
+    {
+        "name": "PGs",
+        "voxel_value": 151
+    },
+    {
+        "name": "V6A",
+        "voxel_value": 152
+    },
+    {
+        "name": "VMV1",
+        "voxel_value": 153
+    },
+    {
+        "name": "VMV3",
+        "voxel_value": 154
+    },
+    {
+        "name": "PHA2",
+        "voxel_value": 155
+    },
+    {
+        "name": "V4t",
+        "voxel_value": 156
+    },
+    {
+        "name": "FST",
+        "voxel_value": 157
+    },
+    {
+        "name": "V3CD",
+        "voxel_value": 158
+    },
+    {
+        "name": "LO3",
+        "voxel_value": 159
+    },
+    {
+        "name": "VMV2",
+        "voxel_value": 160
+    },
+    {
+        "name": "31pd",
+        "voxel_value": 161
+    },
+    {
+        "name": "31a",
+        "voxel_value": 162
+    },
+    {
+        "name": "VVC",
+        "voxel_value": 163
+    },
+    {
+        "name": "25",
+        "voxel_value": 164
+    },
+    {
+        "name": "s32",
+        "voxel_value": 165
+    },
+    {
+        "name": "pOFC",
+        "voxel_value": 166
+    },
+    {
+        "name": "PoI1",
+        "voxel_value": 167
+    },
+    {
+        "name": "Ig",
+        "voxel_value": 168
+    },
+    {
+        "name": "FOP5",
+        "voxel_value": 169
+    },
+    {
+        "name": "p10p",
+        "voxel_value": 170
+    },
+    {
+        "name": "p47r",
+        "voxel_value": 171
+    },
+    {
+        "name": "TGv",
+        "voxel_value": 172
+    },
+    {
+        "name": "MBelt",
+        "voxel_value": 173
+    },
+    {
+        "name": "LBelt",
+        "voxel_value": 174
+    },
+    {
+        "name": "A4",
+        "voxel_value": 175
+    },
+    {
+        "name": "STSva",
+        "voxel_value": 176
+    },
+    {
+        "name": "TE1m",
+        "voxel_value": 177
+    },
+    {
+        "name": "PI",
+        "voxel_value": 178
+    },
+    {
+        "name": "a32pr",
+        "voxel_value": 179
+    },
+    {
+        "name": "p24",
+        "voxel_value": 180
+    }
+]

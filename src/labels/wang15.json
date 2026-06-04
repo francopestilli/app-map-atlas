@@ -1,0 +1,107 @@
+[
+    {
+        "name": "no visual area",
+        "desc": "no visual area",
+        "voxel_value": 0
+    },
+    {
+        "name": "V1v",
+        "voxel_value": 1
+    },
+    {
+        "name": "V1d",
+        "voxel_value": 2
+    },
+    {
+        "name": "V2v",
+        "voxel_value": 3
+    },
+    {
+        "name": "V2d",
+        "voxel_value": 4
+    },
+    {
+        "name": "V3v",
+        "voxel_value": 5
+    },
+    {
+        "name": "V3d",
+        "voxel_value": 6
+    },
+    {
+        "name": "hV4",
+        "voxel_value": 7
+    },
+    {
+        "name": "VO1",
+        "voxel_value": 8
+    },
+    {
+        "name": "VO2",
+        "voxel_value": 9
+    },
+    {
+        "name": "PHC1",
+        "voxel_value": 10
+    },
+    {
+        "name": "PHC2",
+        "voxel_value": 11
+    },
+    {
+        "name": "TO2",
+        "voxel_value": 12
+    },
+    {
+        "name": "TO1",
+        "voxel_value": 13
+    },
+    {
+        "name": "LO2",
+        "voxel_value": 14
+    },
+    {
+        "name": "LO1",
+        "voxel_value": 15
+    },
+    {
+        "name": "V3b",
+        "voxel_value": 16
+    },
+    {
+        "name": "V3a",
+        "voxel_value": 17
+    },
+    {
+        "name": "IPS0",
+        "voxel_value": 18
+    },
+    {
+        "name": "IPS1",
+        "voxel_value": 19
+    },
+    {
+        "name": "IPS2",
+        "voxel_value": 20
+    },
+    {
+        "name": "IPS3",
+        "voxel_value": 21
+    },
+    {
+        "name": "IPS4",
+        "voxel_value": 22
+    },
+    {
+        "name": "IPS5",
+        "voxel_value": 23
+    },
+    {
+        "name": "SPL1",
+        "voxel_value": 24
+    },
+    {
+        "name": "FEF",
+        "voxel_value": 25
+    }
+]
