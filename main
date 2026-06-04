@@ -72,15 +72,17 @@ print("unique:", np.unique(data)[:20])
 EOF_PY
 }
 
+LABEL_DIR="${APPDIR}/src/labels"
+
 copy_label_json() {
     local atlas_name="$1"
-    local outdir="$2"
-    local label_json="${LABEL_DIR}/${atlas_name}/label.json"
 
-    if [[ -f "${label_json}" ]]; then
-        cp "${label_json}" "${outdir}/label.json"
+    local label="${LABEL_DIR}/${atlas_name}.json"
+
+    if [[ -f "${label}" ]]; then
+        cp "${label}" "${parcellation}/label.json"
     else
-        echo "WARNING: missing label file: ${label_json}"
+        echo "WARNING: missing label file: ${label}"
     fi
 }
 
